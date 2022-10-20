@@ -24,11 +24,6 @@ class _AddStudentState extends State<DeleteStudent> {
     Future<String> addStudent() async {
       final jsonbody = jsonEncode(<String, dynamic>{
         "StudentId": int.parse(idController.text),
-        "StudentName": "",
-        "FatherName": "",
-        "MotherName": "",
-        "Cgpa": 0.0,
-        "City": ""
       });
       print(jsonbody);
       final responseofAPI = await http.delete(
@@ -36,9 +31,6 @@ class _AddStudentState extends State<DeleteStudent> {
           headers: {'Content-Type': 'application/json'},
           body: jsonbody);
       print("Code -----> ${responseofAPI.statusCode}");
-
-      print(jsonDecode(responseofAPI.body));
-      print(responseofAPI.body);
       return jsonDecode(responseofAPI.body);
     }
 
