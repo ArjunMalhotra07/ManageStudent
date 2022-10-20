@@ -21,6 +21,7 @@ class _AllStudentsState extends State<AllStudents> {
   TextEditingController snController = TextEditingController();
   TextEditingController cgController = TextEditingController();
   TextEditingController ctController = TextEditingController();
+  int mode = 1;
   Future<List<StudentDetails>?> getStudentDetails() async {
     // var uri = Uri.parse(
     //     'http://192.168.33.98:8082/Desktop/arjun_malhotra/go_Projects/studentData/testData.json'); //Phone Hotspot
@@ -64,6 +65,19 @@ class _AllStudentsState extends State<AllStudents> {
 
     print(jsonDecode(responseofAPI.body));
     print(responseofAPI.body);
+    return jsonDecode(responseofAPI.body);
+  }
+
+  Future<String> deleteStudent(int id) async {
+    final jsonbody = jsonEncode(<String, dynamic>{
+      "StudentId": id,
+    });
+    print(jsonbody);
+    final responseofAPI = await http.delete(
+        Uri.parse('http://192.168.1.19:8081/remove'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonbody);
+    print("Code -----> ${responseofAPI.statusCode}");
     return jsonDecode(responseofAPI.body);
   }
 
@@ -209,9 +223,117 @@ class _AllStudentsState extends State<AllStudents> {
                                         RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ))),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  confirmation(id);
+                                },
                                 child: const Text(
                                   "Delete",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ));
+  }
+
+  confirmation(int id) {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30))),
+              content: SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    children: [
+                      const Center(
+                        child: Text(
+                          'Are you sure you want to delete this student from the database?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20, color: Colors.purple),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.purple),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ))),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 30,
+                              ),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.purple),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ))),
+                                onPressed: () async {
+                                  String response = await deleteStudent(id);
+                                  Navigator.of(context).pop();
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        _timer = Timer(
+                                            const Duration(seconds: 3), () {
+                                          Navigator.of(context).pop();
+                                        });
+                                        return AlertDialog(
+                                          content: Text(response),
+                                        );
+                                      }).then((value) {
+                                    if (_timer.isActive) {
+                                      _timer.cancel();
+                                    }
+                                    setState(() {
+                                      getStudentDetails();
+                                      idController.clear();
+                                    });
+                                  });
+                                },
+                                child: const Text(
+                                  "Confirm",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Poppins',
@@ -274,7 +396,6 @@ class _AllStudentsState extends State<AllStudents> {
                             }).then((value) {
                           if (_timer.isActive) {
                             _timer.cancel();
-                            Navigator.of(context).pop();
                           }
                           setState(() {
                             updateStudentAPI(id, sn, fn, mn, cg, ct);
@@ -317,7 +438,7 @@ class _AllStudentsState extends State<AllStudents> {
                           ),
                           const Spacer(),
                           Container(
-                            width: 10,
+                            width: 30,
                           )
                         ],
                       ),

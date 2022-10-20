@@ -1,12 +1,6 @@
-import 'dart:convert';
-
-import 'package:api_test_app/models/studentModel.dart';
 import 'package:api_test_app/pages/addStudent.dart';
 import 'package:api_test_app/pages/allStudents.dart';
-import 'package:api_test_app/pages/deleteStudent.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
 
 void main() {
   runApp(const MyApp());
@@ -54,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   ElevatedButton(
                     style: styleofButton(),
-                    child: style("Get List"),
+                    child: style("Get Student Data"),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -70,17 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => AddStudent()),
-                      );
-                    },
-                  ),
-                  ElevatedButton(
-                    style: styleofButton(),
-                    child: style("Edit Student Data"),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DeleteStudent()),
                       );
                     },
                   ),
