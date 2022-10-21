@@ -22,7 +22,7 @@ class _AllStudentsState extends State<AllStudents> {
   TextEditingController snController = TextEditingController();
   TextEditingController cgController = TextEditingController();
   TextEditingController ctController = TextEditingController();
-  int mode = 1;
+
   Future<List<StudentDetails>?> getStudentDetails() async {
     // var uri = Uri.parse(
     //     'http://192.168.33.98:8082/Desktop/arjun_malhotra/go_Projects/studentData/testData.json'); //Phone Hotspot
@@ -375,8 +375,8 @@ class _AllStudentsState extends State<AllStudents> {
                   child: Center(
                     child: ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.blue),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Colors.purpleAccent),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -438,7 +438,7 @@ class _AllStudentsState extends State<AllStudents> {
                                 Navigator.of(context).pop();
                               },
                               icon: const Icon(CupertinoIcons.arrow_left_circle,
-                                  size: 32, color: Colors.lightBlueAccent)),
+                                  size: 32, color: Colors.purpleAccent)),
                           const Spacer(),
                           const Align(
                             alignment: Alignment.center,
@@ -453,35 +453,34 @@ class _AllStudentsState extends State<AllStudents> {
                         ],
                       ),
                       const SizedBox(height: 15),
-
-                      text('Student ID'),
+                      CustomTextStyle(title: "Student ID"),
                       const SizedBox(height: 4),
                       CustomField(
                           hintText: id.toString(), controller: idController),
                       const SizedBox(height: 15),
 
-                      text("Student's Name"),
+                      CustomTextStyle(title: "Student's Name"),
                       const SizedBox(height: 4),
                       CustomField(hintText: sn, controller: snController),
                       const SizedBox(height: 15),
 
-                      text("Father's Name"),
+                      CustomTextStyle(title: "Father's Name"),
                       const SizedBox(height: 4),
                       CustomField(hintText: fn, controller: fnController),
                       const SizedBox(height: 15),
 
-                      text("Mother's Name"),
+                      CustomTextStyle(title: "Mother's Name"),
                       const SizedBox(height: 4),
                       CustomField(hintText: mn, controller: mnController),
                       const SizedBox(height: 15),
 
-                      text('CGPA'),
+                      CustomTextStyle(title: "CGPA"),
                       const SizedBox(height: 4),
                       CustomField(
                           hintText: cg.toString(), controller: cgController),
                       const SizedBox(height: 15),
 
-                      text('City'),
+                      CustomTextStyle(title: "City"),
                       const SizedBox(height: 4),
                       CustomField(hintText: ct, controller: ctController),
                     ],
@@ -489,17 +488,5 @@ class _AllStudentsState extends State<AllStudents> {
                 ),
               ),
             ));
-  }
-
-  Text text(String title) {
-    return Text(
-      title,
-      style: const TextStyle(
-        fontSize: 14,
-        color: Colors.lightBlueAccent,
-        fontFamily: 'Poppins',
-        fontWeight: FontWeight.w400,
-      ),
-    );
   }
 }

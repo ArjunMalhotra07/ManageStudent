@@ -43,3 +43,21 @@ class CustomField extends StatelessWidget {
     );
   }
 }
+
+class CustomTextStyle extends StatelessWidget {
+  var title;
+  CustomTextStyle({Key? key, required this.title}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 14,
+        color: Colors.purpleAccent,
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.w400,
+      ),
+    );
+  }
+}
