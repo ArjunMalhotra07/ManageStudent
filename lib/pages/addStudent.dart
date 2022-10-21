@@ -22,12 +22,6 @@ class _AddStudentState extends State<AddStudent> {
   @override
   Widget build(BuildContext context) {
     var _timer;
-    final id = field("ID", idController);
-    final fatherName = field("Father's Name", fnController);
-    final motherName = field("Mother's Name", mnController);
-    final studentName = field("Student's Name", snController);
-    final cgpa = field("CGPA", cgController);
-    final city = field("City", ctController);
     const box = SizedBox(
       height: 50,
     );
@@ -122,21 +116,6 @@ class _AddStudentState extends State<AddStudent> {
             ]),
           ),
         ),
-      ),
-    );
-  }
-
-  TextFormField field(String hintText, TextEditingController name) {
-    return TextFormField(
-      autofocus: false,
-      cursorColor: Colors.grey,
-      controller: name,
-      textInputAction: TextInputAction.next,
-      decoration: InputDecoration(
-        prefixIcon: const Icon(Icons.key),
-        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: hintText,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }
