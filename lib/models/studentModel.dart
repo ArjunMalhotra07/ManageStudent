@@ -1,10 +1,10 @@
 class StudentDetails {
-  int? studentId;
-  String? studentName;
-  String? fatherName;
-  String? motherName;
+  var studentId;
+  var studentName;
+  var fatherName;
+  var motherName;
   var cg;
-  String? city;
+  var city;
 
   StudentDetails(this.studentId, this.studentName, this.fatherName,
       this.motherName, this.cg, this.city);

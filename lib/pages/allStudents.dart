@@ -170,7 +170,7 @@ class _AllStudentsState extends State<AllStudents> {
         ));
   }
 
-  edit(BuildContext context, int id, String sn, fn, mn, var cg, String ct) {
+  edit(BuildContext context, var id, String sn, fn, mn, cg, ct) {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -362,7 +362,7 @@ class _AllStudentsState extends State<AllStudents> {
             ));
   }
 
-  updateStudent(int id, String sn, fn, mn, var cg, String ct) {
+  updateStudent(var id, String sn, fn, mn, cg, ct) {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -456,7 +456,8 @@ class _AllStudentsState extends State<AllStudents> {
 
                       text('Student ID'),
                       const SizedBox(height: 4),
-                      CustomField(hintText: "$id", controller: idController),
+                      CustomField(
+                          hintText: id.toString(), controller: idController),
                       const SizedBox(height: 15),
 
                       text("Student's Name"),
@@ -476,7 +477,8 @@ class _AllStudentsState extends State<AllStudents> {
 
                       text('CGPA'),
                       const SizedBox(height: 4),
-                      CustomField(hintText: cg, controller: cgController),
+                      CustomField(
+                          hintText: cg.toString(), controller: cgController),
                       const SizedBox(height: 15),
 
                       text('City'),

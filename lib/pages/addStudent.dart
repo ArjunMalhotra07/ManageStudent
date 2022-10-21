@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 // import 'package:logger/logger.dart';
+import 'package:api_test_app/utils/customWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -64,17 +65,17 @@ class _AddStudentState extends State<AddStudent> {
           padding: const EdgeInsets.fromLTRB(50.0, 50, 50, 10),
           child: SingleChildScrollView(
             child: Column(children: [
-              id,
+              CustomField(hintText: "ID", controller: idController),
               box,
-              studentName,
+              CustomField(hintText: "Student's Name", controller: snController),
               box,
-              fatherName,
+              CustomField(hintText: "Father's Name", controller: fnController),
               box,
-              motherName,
+              CustomField(hintText: "Mother's Name", controller: mnController),
               box,
-              cgpa,
+              CustomField(hintText: "CGPA", controller: cgController),
               box,
-              city,
+              CustomField(hintText: "City", controller: ctController),
               box,
               ElevatedButton(
                 style: ButtonStyle(
