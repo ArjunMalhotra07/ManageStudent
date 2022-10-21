@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:api_test_app/models/studentModel.dart';
+import 'package:api_test_app/utils/apis.dart';
 import 'package:api_test_app/utils/customWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,74 +24,6 @@ class _AllStudentsState extends State<AllStudents> {
   TextEditingController cgController = TextEditingController();
   TextEditingController ctController = TextEditingController();
 
-  Future<List<StudentDetails>?> getStudentDetails() async {
-    // var uri = Uri.parse(
-    //     'http://192.168.33.98:8082/Desktop/arjun_malhotra/go_Projects/studentData/testData.json'); //Phone Hotspot
-    // var uri = Uri.parse(
-    // 'http://192.168.1.19:80/Desktop/arjun/go_projects/01StudentData/testData.json'); // Wifi
-
-    // var uri = Uri.parse('http://192.168.1.19:8081/everyStudent');
-    var uri = Uri.parse('http://192.168.33.98:8081/everyStudent');
-
-    var response = await http.get(uri);
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
-      return data.map((e) => StudentDetails.fromJson(e)).toList();
-    }
-    return null;
-  }
-
-  Future<String> updateStudentAPI(
-      int id, String sn, fn, mn, var cg, String ct) async {
-    final jsonbody = jsonEncode({
-      "StudentId": id,
-      "StudentName": sn,
-      "FatherName": fn,
-      "MotherName": mn,
-      "Cgpa": cg,
-      "City": ct,
-      "StudentIdUpdated":
-          idController.text.isEmpty ? id : int.parse(idController.text),
-      "StudentNameUpdated": snController.text.isEmpty ? sn : snController.text,
-      "FatherNameUpdated": fnController.text.isEmpty ? fn : fnController.text,
-      "MotherNameUpdated": mnController.text.isEmpty ? mn : mnController.text,
-      "CgpaUpdated":
-          cgController.text.isEmpty ? cg : double.parse(cgController.text),
-      "CityUpdated": ctController.text.isEmpty ? ct : ctController.text
-    });
-    print(jsonbody);
-    // final responseofAPI = await http.put(
-    //     Uri.parse('http://192.168.1.19:8081/update'),
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: jsonbody);
-    final responseofAPI = await http.put(
-        Uri.parse('http://192.168.33.98:8081/update'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonbody);
-    print("Code -----> ${responseofAPI.statusCode}");
-
-    print(jsonDecode(responseofAPI.body));
-    print(responseofAPI.body);
-    return jsonDecode(responseofAPI.body);
-  }
-
-  Future<String> deleteStudent(int id) async {
-    final jsonbody = jsonEncode(<String, dynamic>{
-      "StudentId": id,
-    });
-    print(jsonbody);
-    // final responseofAPI = await http.delete(
-    //     Uri.parse('http://192.168.1.19:8081/remove'),
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: jsonbody);
-    final responseofAPI = await http.delete(
-        Uri.parse('http://192.168.33.98:8081/remove'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonbody);
-    print("Code -----> ${responseofAPI.statusCode}");
-    return jsonDecode(responseofAPI.body);
-  }
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -104,7 +37,7 @@ class _AllStudentsState extends State<AllStudents> {
             color: const Color(0xffBCE0FD).withOpacity(.38),
           ),
           child: FutureBuilder(
-            future: getStudentDetails(),
+            future: APIs().getStudentDetails(),
             builder: (context, data) {
               if (data.hasError) {
                 return Padding(
@@ -320,7 +253,8 @@ class _AllStudentsState extends State<AllStudents> {
                                       borderRadius: BorderRadius.circular(10),
                                     ))),
                                 onPressed: () async {
-                                  String response = await deleteStudent(id);
+                                  String response =
+                                      await APIs().deleteStudent(id);
                                   Navigator.of(context).pop();
                                   showDialog(
                                       context: context,
@@ -337,7 +271,7 @@ class _AllStudentsState extends State<AllStudents> {
                                       _timer.cancel();
                                     }
                                     setState(() {
-                                      getStudentDetails();
+                                      APIs().getStudentDetails();
                                       idController.clear();
                                     });
                                   });
@@ -391,8 +325,19 @@ class _AllStudentsState extends State<AllStudents> {
                             fontSize: 14),
                       ),
                       onPressed: () async {
-                        var responseOfApi =
-                            await updateStudentAPI(id, sn, fn, mn, cg, ct);
+                        var responseOfApi = await APIs().updateStudentAPI(
+                            id,
+                            sn,
+                            fn,
+                            mn,
+                            cg,
+                            ct,
+                            idController.text,
+                            snController.text,
+                            fnController.text,
+                            mnController.text,
+                            cgController.text,
+                            ctController.text);
                         Navigator.of(context).pop();
                         showDialog(
                             context: context,
@@ -408,7 +353,6 @@ class _AllStudentsState extends State<AllStudents> {
                             _timer.cancel();
                           }
                           setState(() {
-                            updateStudentAPI(id, sn, fn, mn, cg, ct);
                             idController.clear();
                             snController.clear();
                             fnController.clear();
