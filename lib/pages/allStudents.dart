@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:api_test_app/models/studentModel.dart';
+import 'package:api_test_app/utils/customWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,8 @@ class _AllStudentsState extends State<AllStudents> {
     // var uri = Uri.parse(
     // 'http://192.168.1.19:80/Desktop/arjun/go_projects/01StudentData/testData.json'); // Wifi
 
-    var uri = Uri.parse('http://192.168.1.19:8081/everyStudent');
+    // var uri = Uri.parse('http://192.168.1.19:8081/everyStudent');
+    var uri = Uri.parse('http://192.168.33.98:8081/everyStudent');
 
     var response = await http.get(uri);
     if (response.statusCode == 200) {
@@ -57,8 +59,12 @@ class _AllStudentsState extends State<AllStudents> {
       "CityUpdated": ctController.text.isEmpty ? ct : ctController.text
     });
     print(jsonbody);
+    // final responseofAPI = await http.put(
+    //     Uri.parse('http://192.168.1.19:8081/update'),
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: jsonbody);
     final responseofAPI = await http.put(
-        Uri.parse('http://192.168.1.19:8081/update'),
+        Uri.parse('http://192.168.33.98:8081/update'),
         headers: {'Content-Type': 'application/json'},
         body: jsonbody);
     print("Code -----> ${responseofAPI.statusCode}");
@@ -73,8 +79,12 @@ class _AllStudentsState extends State<AllStudents> {
       "StudentId": id,
     });
     print(jsonbody);
+    // final responseofAPI = await http.delete(
+    //     Uri.parse('http://192.168.1.19:8081/remove'),
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: jsonbody);
     final responseofAPI = await http.delete(
-        Uri.parse('http://192.168.1.19:8081/remove'),
+        Uri.parse('http://192.168.33.98:8081/remove'),
         headers: {'Content-Type': 'application/json'},
         body: jsonbody);
     print("Code -----> ${responseofAPI.statusCode}");
@@ -446,32 +456,32 @@ class _AllStudentsState extends State<AllStudents> {
 
                       text('Student ID'),
                       const SizedBox(height: 4),
-                      form("$id", idController),
+                      CustomField(hintText: "$id", controller: idController),
                       const SizedBox(height: 15),
 
                       text("Student's Name"),
                       const SizedBox(height: 4),
-                      form(sn, snController),
+                      CustomField(hintText: sn, controller: snController),
                       const SizedBox(height: 15),
 
                       text("Father's Name"),
                       const SizedBox(height: 4),
-                      form(fn, fnController),
+                      CustomField(hintText: fn, controller: fnController),
                       const SizedBox(height: 15),
 
                       text("Mother's Name"),
                       const SizedBox(height: 4),
-                      form(mn, mnController),
+                      CustomField(hintText: mn, controller: mnController),
                       const SizedBox(height: 15),
 
                       text('CGPA'),
                       const SizedBox(height: 4),
-                      form("$cg", cgController),
+                      CustomField(hintText: cg, controller: cgController),
                       const SizedBox(height: 15),
 
                       text('City'),
                       const SizedBox(height: 4),
-                      form(ct, ctController),
+                      CustomField(hintText: ct, controller: ctController),
                     ],
                   ),
                 ),
@@ -488,41 +498,6 @@ class _AllStudentsState extends State<AllStudents> {
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w400,
       ),
-    );
-  }
-
-  Widget form(String hintText, TextEditingController controller) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Color(0xffBCE0FD).withOpacity(.38),
-        borderRadius: BorderRadius.circular(12),
-        // border: Border.all(color: Colors.blueAccent, width: 1.5),
-      ),
-      height: 50,
-      child: Card(
-          child: TextFormField(
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        autofocus: true,
-        style: const TextStyle(
-          fontSize: 14,
-          fontFamily: 'Poppins',
-          fontWeight: FontWeight.w400,
-        ),
-        maxLength: 30,
-        controller: controller,
-        maxLines: 3,
-        decoration: InputDecoration(
-            counterText: "",
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.only(left: 20, top: 8),
-            hintStyle: const TextStyle(
-              fontSize: 12,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w400,
-            ),
-            hintMaxLines: 2,
-            hintText: hintText),
-      )),
     );
   }
 }

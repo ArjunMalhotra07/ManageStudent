@@ -40,8 +40,12 @@ class _AddStudentState extends State<AddStudent> {
         "City": ctController.text
       });
       print(jsonbody);
+      // final responseofAPI = await http.post(
+      //     Uri.parse('http://192.168.1.19:8081/everyStudent'),
+      //     headers: {'Content-Type': 'application/json'},
+      //     body: jsonbody);
       final responseofAPI = await http.post(
-          Uri.parse('http://192.168.1.19:8081/everyStudent'),
+          Uri.parse('http://192.168.33.98:8081/everyStudent'),
           headers: {'Content-Type': 'application/json'},
           body: jsonbody);
       print("Code -----> ${responseofAPI.statusCode}");
