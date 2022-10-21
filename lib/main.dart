@@ -1,6 +1,5 @@
 import 'package:api_test_app/pages/addStudent.dart';
 import 'package:api_test_app/pages/allStudents.dart';
-import 'package:api_test_app/pages/page1.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -65,26 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => AddStudent()),
-                      );
-                    },
-                  ),
-                  ElevatedButton(
-                    style: styleofButton(),
-                    child: style("Page View Test"),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PageOriginal()),
-                      );
-                    },
-                  ),
-                  ElevatedButton(
-                    style: styleofButton(),
-                    child: style("Details"),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => DetailsPage()),
                       );
                     },
                   ),

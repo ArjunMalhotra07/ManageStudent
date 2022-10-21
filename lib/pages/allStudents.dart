@@ -57,32 +57,26 @@ class _AllStudentsState extends State<AllStudents> {
                           final cg = student.cg;
                           final cityName = student.city;
                           final studentName = student.studentName;
-
-                          return Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                width * .06, 0, width * .06, 15),
-                            child: GestureDetector(
-                              onDoubleTap: () {
-                                edit(context, id!, studentName!, father, mother,
-                                    cg, cityName!);
-                              },
-                              child: Container(
-                                color: Colors.white,
-                                height: height * .13,
-                                width: width * .6,
-                                child: Center(
-                                    child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("ID : $id"),
-                                    Text("$studentName"),
-                                    Text("$father"),
-                                    Text("$mother"),
-                                    Text("$cg"),
-                                    Text("$cityName"),
-                                  ],
-                                )),
+                          return SizedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: SingleChildScrollView(
+                                child: GestureDetector(
+                                  onDoubleTap: () {
+                                    edit(context, id!, studentName!, father,
+                                        mother, cg, cityName!);
+                                  },
+                                  child: Column(children: [
+                                    CustomReadOnlyField(
+                                        hintText: id.toString()),
+                                    CustomReadOnlyField(hintText: studentName),
+                                    CustomReadOnlyField(hintText: father),
+                                    CustomReadOnlyField(hintText: mother),
+                                    CustomReadOnlyField(
+                                        hintText: cg.toString()),
+                                    CustomReadOnlyField(hintText: cityName),
+                                  ]),
+                                ),
                               ),
                             ),
                           );
@@ -110,9 +104,9 @@ class _AllStudentsState extends State<AllStudents> {
                 child: Container(
                   child: Column(
                     children: [
-                      const Center(
+                      Center(
                         child: Text(
-                          'Update Student Information',
+                          "Update ${sn}'s Information",
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 20, color: Colors.purple),
                         ),
@@ -165,7 +159,7 @@ class _AllStudentsState extends State<AllStudents> {
                                     ))),
                                 onPressed: () async {
                                   Navigator.of(context).pop();
-                                  confirmation(id);
+                                  confirmation(id, sn);
                                 },
                                 child: const Text(
                                   "Delete",
@@ -187,7 +181,7 @@ class _AllStudentsState extends State<AllStudents> {
             ));
   }
 
-  confirmation(int id) {
+  confirmation(int id, String sn) {
     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -197,9 +191,9 @@ class _AllStudentsState extends State<AllStudents> {
                 child: Container(
                   child: Column(
                     children: [
-                      const Center(
+                      Center(
                         child: Text(
-                          'Are you sure you want to delete this student from the database?',
+                          'Confirm to delete $sn from the database',
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 20, color: Colors.purple),
                         ),
