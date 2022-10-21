@@ -1,12 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:api_test_app/models/studentModel.dart';
 import 'package:api_test_app/utils/apis.dart';
 import 'package:api_test_app/utils/customWidgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class AllStudents extends StatefulWidget {
   const AllStudents({super.key});

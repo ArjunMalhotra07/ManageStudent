@@ -18,7 +18,6 @@ class CustomField extends StatelessWidget {
       child: Card(
           child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        autofocus: true,
         style: const TextStyle(
           fontSize: 14,
           fontFamily: 'Poppins',
@@ -57,6 +56,44 @@ class CustomTextStyle extends StatelessWidget {
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w400,
       ),
+    );
+  }
+}
+
+class CustomReadOnlyField extends StatelessWidget {
+  final String hintText;
+  CustomReadOnlyField({Key? key, required this.hintText}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(0xffBCE0FD).withOpacity(.38),
+        borderRadius: BorderRadius.circular(12),
+        // border: Border.all(color: Colors.blueAccent, width: 1.5),
+      ),
+      height: 50,
+      child: Card(
+          child: TextFormField(
+        style: const TextStyle(
+          fontSize: 14,
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w400,
+        ),
+        readOnly: true,
+        maxLines: 3,
+        decoration: InputDecoration(
+            counterText: "",
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.only(left: 20, top: 8),
+            hintStyle: const TextStyle(
+              fontSize: 12,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w400,
+            ),
+            hintMaxLines: 2,
+            hintText: hintText),
+      )),
     );
   }
 }
