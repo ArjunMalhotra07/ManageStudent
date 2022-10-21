@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:api_test_app/models/studentModel.dart';
+import 'package:api_test_app/pages/addStudent.dart';
 import 'package:api_test_app/utils/apis.dart';
 import 'package:api_test_app/utils/customWidgets.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,8 +27,18 @@ class _AllStudentsState extends State<AllStudents> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddStudent()),
+            );
+          },
+          child: Icon(Icons.add),
+        ),
         appBar: AppBar(
-          title: const Text("All Students"),
+          title: const Text("1st Sem - 2018 CSE Sec A"),
+          centerTitle: true,
         ),
         body: Container(
           decoration: BoxDecoration(
@@ -133,6 +144,31 @@ class _AllStudentsState extends State<AllStudents> {
                                     ))),
                                 onPressed: () {
                                   Navigator.of(context).pop();
+                                },
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.purple),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ))),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
                                   updateStudent(id, sn, fn, mn, cg, ct);
                                 },
                                 child: const Text(
@@ -145,7 +181,7 @@ class _AllStudentsState extends State<AllStudents> {
                                 ),
                               ),
                               const SizedBox(
-                                width: 30,
+                                width: 20,
                               ),
                               ElevatedButton(
                                 style: ButtonStyle(

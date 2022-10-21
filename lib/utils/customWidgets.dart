@@ -62,7 +62,8 @@ class CustomTextStyle extends StatelessWidget {
 
 class CustomReadOnlyField extends StatelessWidget {
   final String hintText;
-  CustomReadOnlyField({Key? key, required this.hintText}) : super(key: key);
+  const CustomReadOnlyField({Key? key, required this.hintText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +84,16 @@ class CustomReadOnlyField extends StatelessWidget {
         readOnly: true,
         maxLines: 3,
         decoration: InputDecoration(
-            counterText: "",
-            border: InputBorder.none,
-            contentPadding: const EdgeInsets.only(left: 20, top: 8),
-            hintStyle: const TextStyle(
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.only(left: 20, top: 8),
+          hintStyle: const TextStyle(
               fontSize: 12,
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w400,
-            ),
-            hintMaxLines: 2,
-            hintText: hintText),
+              color: Colors.black),
+          hintMaxLines: 2,
+          hintText: hintText,
+        ),
       )),
     );
   }

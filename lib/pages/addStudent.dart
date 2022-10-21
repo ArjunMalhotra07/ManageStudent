@@ -52,6 +52,7 @@ class _AddStudentState extends State<AddStudent> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add Student"),
+        centerTitle: true,
       ),
       body: Container(
         child: Padding(
