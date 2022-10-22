@@ -16,6 +16,31 @@ class APIs {
     return null;
   }
 
+  Future<String> addStudent(var id, sn, fn, mn, cg, ct) async {
+    final jsonbody = jsonEncode(<String, dynamic>{
+      "StudentId": id,
+      "StudentName": sn,
+      "FatherName": fn,
+      "MotherName": mn,
+      "Cgpa": cg,
+      "City": ct
+    });
+    print(jsonbody);
+    final responseofAPI = await http.post(
+        Uri.parse('http://192.168.1.19:8081/everyStudent'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonbody);
+    // final responseofAPI = await http.post(
+    //     Uri.parse('http://192.168.33.98:8081/everyStudent'),
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: jsonbody);
+    print("Code -----> ${responseofAPI.statusCode}");
+
+    print(jsonDecode(responseofAPI.body));
+    print(responseofAPI.body);
+    return jsonDecode(responseofAPI.body);
+  }
+
   Future<String> updateStudentAPI(var id, sn, fn, mn, cg, ct, idOld, snOld,
       fnOld, mnOld, cgOld, ctOld) async {
     final jsonbody = jsonEncode({

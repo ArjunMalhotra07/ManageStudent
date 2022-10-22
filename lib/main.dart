@@ -1,3 +1,4 @@
+import 'package:api_test_app/pages/addStudent.dart';
 import 'package:api_test_app/pages/allStudents.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +13,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const AllStudents(),
+        '/second': (context) => AddStudent(),
+      },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: AllStudents(),
+      // home: AllStudents(),
     );
   }
 }

@@ -37,10 +37,11 @@ class _AllStudentsState extends State<AllStudents> {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddStudent()),
-            );
+            Navigator.pushNamed(context, '/second');
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => AddStudent()),
+            // );
           },
           child: Icon(Icons.add),
         ),
@@ -292,6 +293,9 @@ class _AllStudentsState extends State<AllStudents> {
                                   String response =
                                       await APIs().deleteStudent(id);
                                   Navigator.of(context).pop();
+                                  setState(() {
+                                    myFuture = APIs().getStudentDetails();
+                                  });
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -306,10 +310,6 @@ class _AllStudentsState extends State<AllStudents> {
                                     if (_timer.isActive) {
                                       _timer.cancel();
                                     }
-                                    setState(() {
-                                      myFuture = APIs().getStudentDetails();
-                                      idController.clear();
-                                    });
                                   });
                                 },
                                 child: const Text(
@@ -375,6 +375,15 @@ class _AllStudentsState extends State<AllStudents> {
                             cgController.text,
                             ctController.text);
                         Navigator.of(context).pop();
+                        setState(() {
+                          myFuture = APIs().getStudentDetails();
+                          idController.clear();
+                          snController.clear();
+                          fnController.clear();
+                          mnController.clear();
+                          cgController.clear();
+                          ctController.clear();
+                        });
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
@@ -388,15 +397,6 @@ class _AllStudentsState extends State<AllStudents> {
                           if (_timer.isActive) {
                             _timer.cancel();
                           }
-                          setState(() {
-                            myFuture = APIs().getStudentDetails();
-                            idController.clear();
-                            snController.clear();
-                            fnController.clear();
-                            mnController.clear();
-                            cgController.clear();
-                            ctController.clear();
-                          });
                         });
                       },
                     ),

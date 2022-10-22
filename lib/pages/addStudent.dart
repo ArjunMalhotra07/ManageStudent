@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:api_test_app/pages/allStudents.dart';
+import 'package:api_test_app/utils/apis.dart';
 import 'package:api_test_app/utils/customWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,33 +26,10 @@ class _AddStudentState extends State<AddStudent> {
     const box = SizedBox(
       height: 50,
     );
-    Future<String> addStudent() async {
-      final jsonbody = jsonEncode(<String, dynamic>{
-        "StudentId": int.parse(idController.text),
-        "StudentName": snController.text,
-        "FatherName": fnController.text,
-        "MotherName": mnController.text,
-        "Cgpa": double.parse(cgController.text),
-        "City": ctController.text
-      });
-      print(jsonbody);
-      // final responseofAPI = await http.post(
-      //     Uri.parse('http://192.168.1.19:8081/everyStudent'),
-      //     headers: {'Content-Type': 'application/json'},
-      //     body: jsonbody);
-      final responseofAPI = await http.post(
-          Uri.parse('http://192.168.33.98:8081/everyStudent'),
-          headers: {'Content-Type': 'application/json'},
-          body: jsonbody);
-      print("Code -----> ${responseofAPI.statusCode}");
-
-      print(jsonDecode(responseofAPI.body));
-      print(responseofAPI.body);
-      return jsonDecode(responseofAPI.body);
-    }
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Add Student"),
         centerTitle: true,
       ),
@@ -88,7 +67,13 @@ class _AddStudentState extends State<AddStudent> {
                       fontSize: 14),
                 ),
                 onPressed: () async {
-                  String response = await addStudent();
+                  String response = await APIs().addStudent(
+                      int.parse(idController.text),
+                      snController.text,
+                      fnController.text,
+                      mnController.text,
+                      double.parse(cgController.text),
+                      ctController.text);
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -102,14 +87,8 @@ class _AddStudentState extends State<AddStudent> {
                     if (_timer.isActive) {
                       _timer.cancel();
                     }
-                    setState(() {
-                      idController.clear();
-                      fnController.clear();
-                      mnController.clear();
-                      snController.clear();
-                      cgController.clear();
-                      ctController.clear();
-                    });
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/', (Route<dynamic> route) => false);
                   });
                 },
               )
