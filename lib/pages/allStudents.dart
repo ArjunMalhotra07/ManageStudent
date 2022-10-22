@@ -21,6 +21,7 @@ class _AllStudentsState extends State<AllStudents> {
   TextEditingController snController = TextEditingController();
   TextEditingController cgController = TextEditingController();
   TextEditingController ctController = TextEditingController();
+  late Future? myFuture = APIs().getStudentDetails();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class _AllStudentsState extends State<AllStudents> {
             color: const Color(0xffBCE0FD).withOpacity(.38),
           ),
           child: FutureBuilder(
-            future: APIs().getStudentDetails(),
+            future: myFuture,
             builder: (context, data) {
               if (data.hasError) {
                 return Padding(
@@ -54,7 +55,7 @@ class _AllStudentsState extends State<AllStudents> {
               } else if (data.hasData) {
                 var studentData = data.data as List<StudentDetails>;
                 return Padding(
-                  padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                   child: SingleChildScrollView(
                     child: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.9,
