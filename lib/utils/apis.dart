@@ -5,13 +5,12 @@ import 'package:api_test_app/models/studentModel.dart';
 
 class APIs {
   Future<List<StudentDetails>?> getStudentDetails() async {
-    // var uri = Uri.parse('http://192.168.1.19:8081/everyStudent');
-    var uri = Uri.parse('http://192.168.33.98:8081/everyStudent');
+    var uri = Uri.parse('http://192.168.1.19:8081/everyStudent');
+    // var uri = Uri.parse('http://192.168.33.98:8081/everyStudent');
 
     var response = await http.get(uri);
     if (response.statusCode == 200) {
       var data = json.decode(response.body)['data'] as List;
-      // var data = json.decode(response.body) as List;
       return data.map((e) => StudentDetails.fromJson(e)).toList();
     }
     return null;
@@ -34,14 +33,14 @@ class APIs {
       "CityUpdated": ctOld.isEmpty ? ct : ctOld
     });
     print(jsonbody);
-    // final responseofAPI = await http.put(
-    //     Uri.parse('http://192.168.1.19:8081/update'),
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: jsonbody);
     final responseofAPI = await http.put(
-        Uri.parse('http://192.168.33.98:8081/update'),
+        Uri.parse('http://192.168.1.19:8081/update'),
         headers: {'Content-Type': 'application/json'},
         body: jsonbody);
+    // final responseofAPI = await http.put(
+    //     Uri.parse('http://192.168.33.98:8081/update'),
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: jsonbody);
     print("Code -----> ${responseofAPI.statusCode}");
 
     print(jsonDecode(responseofAPI.body));
@@ -54,14 +53,14 @@ class APIs {
       "StudentId": id,
     });
     print(jsonbody);
-    // final responseofAPI = await http.delete(
-    //     Uri.parse('http://192.168.1.19:8081/remove'),
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: jsonbody);
     final responseofAPI = await http.delete(
-        Uri.parse('http://192.168.33.98:8081/remove'),
+        Uri.parse('http://192.168.1.19:8081/remove'),
         headers: {'Content-Type': 'application/json'},
         body: jsonbody);
+    // final responseofAPI = await http.delete(
+    //     Uri.parse('http://192.168.33.98:8081/remove'),
+    //     headers: {'Content-Type': 'application/json'},
+    //     body: jsonbody);
     print("Code -----> ${responseofAPI.statusCode}");
     return jsonDecode(responseofAPI.body);
   }

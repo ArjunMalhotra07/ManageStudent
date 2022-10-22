@@ -1,25 +1,28 @@
 // To parse this JSON data, do
 //
-//     final studentDetails = studentDetailsFromJson(jsonString);
+//     final IncomingStudentDetailsJson = IncomingStudentDetailsJsonFromJson(jsonString);
 
 import 'dart:convert';
 
-StudentDetails studentDetailsFromJson(String str) =>
-    StudentDetails.fromJson(json.decode(str));
+IncomingStudentDetailsJson IncomingStudentDetailsJsonFromJson(String str) =>
+    IncomingStudentDetailsJson.fromJson(json.decode(str));
 
-String studentDetailsToJson(StudentDetails data) => json.encode(data.toJson());
+String IncomingStudentDetailsJsonToJson(IncomingStudentDetailsJson data) =>
+    json.encode(data.toJson());
 
-class StudentDetails {
-  StudentDetails({
+class IncomingStudentDetailsJson {
+  IncomingStudentDetailsJson({
     this.data,
     this.message,
   });
 
-  List<Datum>? data;
+  List<StudentDetails>? data;
   String? message;
 
-  factory StudentDetails.fromJson(Map<String, dynamic> json) => StudentDetails(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+  factory IncomingStudentDetailsJson.fromJson(Map<String, dynamic> json) =>
+      IncomingStudentDetailsJson(
+        data: List<StudentDetails>.from(
+            json["data"].map((x) => StudentDetails.fromJson(x))),
         message: json["message"],
       );
 
@@ -29,8 +32,8 @@ class StudentDetails {
       };
 }
 
-class Datum {
-  Datum({
+class StudentDetails {
+  StudentDetails({
     this.studentId,
     this.studentName,
     this.fatherName,
@@ -46,7 +49,7 @@ class Datum {
   var cgpa;
   var city;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory StudentDetails.fromJson(Map<String, dynamic> json) => StudentDetails(
         studentId: json["StudentId"],
         studentName: json["StudentName"],
         fatherName: json["FatherName"],

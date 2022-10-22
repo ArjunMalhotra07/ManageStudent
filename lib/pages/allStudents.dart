@@ -24,6 +24,13 @@ class _AllStudentsState extends State<AllStudents> {
   late Future? myFuture = APIs().getStudentDetails();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myFuture = APIs().getStudentDetails();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -67,7 +74,7 @@ class _AllStudentsState extends State<AllStudents> {
                           final id = student.studentId;
                           final father = student.fatherName;
                           final mother = student.motherName;
-                          final cg = student.cg;
+                          final cg = student.cgpa;
                           final cityName = student.city;
                           final studentName = student.studentName;
                           return SizedBox(
@@ -300,7 +307,7 @@ class _AllStudentsState extends State<AllStudents> {
                                       _timer.cancel();
                                     }
                                     setState(() {
-                                      APIs().getStudentDetails();
+                                      myFuture = APIs().getStudentDetails();
                                       idController.clear();
                                     });
                                   });
@@ -382,6 +389,7 @@ class _AllStudentsState extends State<AllStudents> {
                             _timer.cancel();
                           }
                           setState(() {
+                            myFuture = APIs().getStudentDetails();
                             idController.clear();
                             snController.clear();
                             fnController.clear();
