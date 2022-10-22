@@ -53,7 +53,8 @@ class _AllStudentsState extends State<AllStudents> {
                     padding: const EdgeInsets.all(8),
                     child: Center(child: Text("${data.error}")));
               } else if (data.hasData) {
-                var studentData = data.data as List<StudentDetails>;
+                var studentData = data.data as List;
+                // var studentDataObject = studentData
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                   child: SingleChildScrollView(

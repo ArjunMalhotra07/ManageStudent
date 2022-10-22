@@ -10,7 +10,8 @@ class APIs {
 
     var response = await http.get(uri);
     if (response.statusCode == 200) {
-      var data = json.decode(response.body) as List;
+      var data = json.decode(response.body)['data'] as List;
+      // var data = json.decode(response.body) as List;
       return data.map((e) => StudentDetails.fromJson(e)).toList();
     }
     return null;
